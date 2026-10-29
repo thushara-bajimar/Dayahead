@@ -13,8 +13,31 @@ export default function Home() {
         </nav>
       </header>
       <main className="min-h-screen bg-stone-50 p-8">
-        <h1 className="text-3xl font-bold text-green-800">Dayahead</h1>
-        <p className="mt-2 text-gray-600">Plan today. Prepare for tomorrow.</p>
+        <section className="py-10">
+          <h1 className="text-3xl font-bold text-stone-800">
+            Good morning!
+          </h1>
+
+          <p className="mt-2 text-stone-500">
+            Plan your day, one task at a time.
+          </p>
+        </section>
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="rounded-xl bg-white p-6 shadow-sm">
+            <p className="text-sm text-stone-500">Total Tasks</p>
+            <h2 className="mt-2 text-3xl font-bold">8</h2>
+          </div>
+
+          <div className="rounded-xl bg-white p-6 shadow-sm">
+            <p className="text-sm text-stone-500">Completed</p>
+            <h2 className="mt-2 text-3xl font-bold text-green-700">3</h2>
+          </div>
+
+          <div className="rounded-xl bg-white p-6 shadow-sm">
+            <p className="text-sm text-stone-500">Pending</p>
+            <h2 className="mt-2 text-3xl font-bold text-amber-600">5</h2>
+          </div>
+        </section>
       </main>
     </>
   );
