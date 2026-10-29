@@ -38,6 +38,33 @@ export default function Home() {
             <h2 className="mt-2 text-3xl font-bold text-amber-600">5</h2>
           </div>
         </section>
+        <section className="mt-10">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-stone-800">
+              Today's Tasks
+            </h2>
+
+            <button className="rounded-lg bg-green-800 px-4 py-2 text-white">
+              + Add Task
+            </button>
+          </div>
+          <div className="rounded-xl border border-stone-200 bg-white p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-semibold text-stone-800">
+                  Complete Java assignment
+                </h3>
+                <p className="mt-1 text-sm text-stone-500">
+                  OOPs · Due today
+                </p>
+              </div>
+
+              <span className="rounded-full bg-red-100 px-3 py-1 text-sm text-red-700">
+                High
+              </span>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );
