@@ -14,11 +14,13 @@ export default function Home() {
 
   const totalTasks = addedTasks.length;
 
-const completedTasks = addedTasks.filter(
-  (task) => task.completed
-).length;
+  const completedTasks = addedTasks.filter(
+    (task) => task.completed
+  ).length;
 
-const pendingTasks = totalTasks - completedTasks;
+  const pendingTasks = totalTasks - completedTasks;
+
+  const [editingIndex, setEditingIndex] = useState(null);
   return (
     <>
       <header className="flex items-center justify-between border-b border-gray-200 pb-4">
@@ -65,7 +67,7 @@ const pendingTasks = totalTasks - completedTasks;
             {showForm && (
               <div className="mb-5 rounded-xl border border-stone-200 bg-white p-5">
                 <h3 className="mb-4 text-lg font-semibold">
-                  Add a New Task
+                  {editingIndex !== null ? "Edit Task" : "Add a New Task"}
                 </h3>
 
                 <input
@@ -97,18 +99,35 @@ const pendingTasks = totalTasks - completedTasks;
                   onClick={() => {
                     if (taskName.trim() === "") return;
 
-                    setAddedTasks([
-                      ...addedTasks,
-                      {
-                        name: taskName,
-                        priority: priority,
-                        deadline: deadline,
-                        completed: false
-                      }
-                    ]);
+                    if (editingIndex !== null) {
+                      setAddedTasks(
+                        addedTasks.map((item, i) =>
+                          i === editingIndex
+                            ? {
+                              ...item,
+                              name: taskName,
+                              priority: priority,
+                              deadline: deadline
+                            }
+                            : item
+                        )
+                      );
+                    } else {
+                      setAddedTasks([
+                        ...addedTasks,
+                        {
+                          name: taskName,
+                          priority: priority,
+                          deadline: deadline,
+                          completed: false
+                        }
+                      ]);
+                    }
+
                     setTaskName("");
                     setPriority("Medium");
                     setDeadline("");
+                    setEditingIndex(null);
                     setShowForm(false);
                   }}
                   className="rounded-lg bg-green-800 px-4 py-2 text-white"
@@ -202,6 +221,30 @@ const pendingTasks = totalTasks - completedTasks;
                 className="mt-3 rounded-lg bg-green-100 px-3 py-2 text-sm text-green-800"
               >
                 {task.completed ? "Completed ✓" : "Mark as Completed"}
+              </button>
+
+              <button
+                onClick={() => {
+                  setTaskName(task.name);
+                  setPriority(task.priority);
+                  setDeadline(task.deadline);
+                  setEditingIndex(index);
+                  setShowForm(true);
+                }}
+                className="mt-3 rounded-lg bg-blue-100 px-3 py-2 text-sm text-blue-700 ml-2"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => {
+                  setAddedTasks(
+                    addedTasks.filter((item, i) => i !== index)
+                  );
+                }}
+                className="ml-2 mt-3 rounded-lg bg-red-100 px-3 py-2 text-sm text-red-700"
+              >
+                Delete
               </button>
             </div>
           ))}
