@@ -8,6 +8,17 @@ export default function Home() {
 
   const [taskName, setTaskName] = useState("");
   const [addedTasks, setAddedTasks] = useState([]);
+
+  const [priority, setPriority] = useState("Medium");
+  const [deadline, setDeadline] = useState("");
+
+  const totalTasks = addedTasks.length;
+
+const completedTasks = addedTasks.filter(
+  (task) => task.completed
+).length;
+
+const pendingTasks = totalTasks - completedTasks;
   return (
     <>
       <header className="flex items-center justify-between border-b border-gray-200 pb-4">
@@ -32,17 +43,17 @@ export default function Home() {
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-xl bg-white p-6 shadow-sm">
             <p className="text-sm text-stone-500">Total Tasks</p>
-            <h2 className="mt-2 text-3xl font-bold">8</h2>
+            <h2 className="mt-2 text-3xl font-bold">{totalTasks}</h2>
           </div>
 
           <div className="rounded-xl bg-white p-6 shadow-sm">
             <p className="text-sm text-stone-500">Completed</p>
-            <h2 className="mt-2 text-3xl font-bold text-green-700">3</h2>
+            <h2 className="mt-2 text-3xl font-bold text-green-700">{completedTasks}</h2>
           </div>
 
           <div className="rounded-xl bg-white p-6 shadow-sm">
             <p className="text-sm text-stone-500">Pending</p>
-            <h2 className="mt-2 text-3xl font-bold text-amber-600">5</h2>
+            <h2 className="mt-2 text-3xl font-bold text-amber-600">{pendingTasks}</h2>
           </div>
         </section>
         <section className="mt-10">
@@ -65,12 +76,39 @@ export default function Home() {
                   onChange={(e) => setTaskName(e.target.value)}
                 />
 
+                <select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  className="mb-3 w-full rounded-lg border p-3"
+                >
+                  <option value="High">High Priority</option>
+                  <option value="Medium">Medium Priority</option>
+                  <option value="Low">Low Priority</option>
+                </select>
+
+                <input
+                  type="date"
+                  value={deadline}
+                  onChange={(e) => setDeadline(e.target.value)}
+                  className="mb-3 w-full rounded-lg border p-3"
+                />
+
                 <button
                   onClick={() => {
                     if (taskName.trim() === "") return;
 
-                    setAddedTasks([...addedTasks, taskName]);
+                    setAddedTasks([
+                      ...addedTasks,
+                      {
+                        name: taskName,
+                        priority: priority,
+                        deadline: deadline,
+                        completed: false
+                      }
+                    ]);
                     setTaskName("");
+                    setPriority("Medium");
+                    setDeadline("");
                     setShowForm(false);
                   }}
                   className="rounded-lg bg-green-800 px-4 py-2 text-white"
@@ -135,17 +173,36 @@ export default function Home() {
               </span>
             </div>
           </div>
+
           {addedTasks.map((task, index) => (
             <div
               key={index}
               className="mt-3 rounded-xl border border-stone-200 bg-white p-5"
             >
               <h3 className="font-semibold text-stone-800">
-                {task}
+                {task.name}
               </h3>
-              <p className="mt-1 text-sm text-green-700">
-                Newly added
+              <p className="mt-1 text-sm text-stone-500">
+                {task.deadline ? `Due: ${task.deadline}` : "No deadline"}
               </p>
+
+              <p className="mt-1 text-sm font-medium">
+                {task.priority} Priority
+              </p>
+              <button
+                onClick={() => {
+                  setAddedTasks(
+                    addedTasks.map((item, i) =>
+                      i === index
+                        ? { ...item, completed: !item.completed }
+                        : item
+                    )
+                  );
+                }}
+                className="mt-3 rounded-lg bg-green-100 px-3 py-2 text-sm text-green-800"
+              >
+                {task.completed ? "Completed ✓" : "Mark as Completed"}
+              </button>
             </div>
           ))}
         </section>
