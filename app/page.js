@@ -7,7 +7,48 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false);
 
   const [taskName, setTaskName] = useState("");
-  const [addedTasks, setAddedTasks] = useState([]);
+  const [addedTasks, setAddedTasks] = useState(() => {
+    const now = Date.now();
+    const getDeadline = (daysFromToday) => {
+      const date = new Date();
+      date.setDate(date.getDate() + daysFromToday);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    };
+
+    return [
+      {
+        id: "sample-java-assignment",
+        name: "Complete Java assignment",
+        subject: "OOPs",
+        priority: "High",
+        deadline: getDeadline(0),
+        completed: false,
+        createdAt: now - 3 * 60 * 1000,
+      },
+      {
+        id: "sample-operating-systems",
+        name: "Study Operating Systems",
+        subject: "OS",
+        priority: "Medium",
+        deadline: getDeadline(1),
+        completed: false,
+        createdAt: now - 2 * 60 * 1000,
+      },
+      {
+        id: "sample-data-structures",
+        name: "Practice Data Structures",
+        subject: "DSA",
+        priority: "Low",
+        deadline: getDeadline(3),
+        completed: false,
+        createdAt: now - 1 * 60 * 1000,
+      },
+    ];
+  });
 
   const [priority, setPriority] = useState("Medium");
   const [deadline, setDeadline] = useState("");
@@ -20,7 +61,26 @@ export default function Home() {
 
   const pendingTasks = totalTasks - completedTasks;
 
-  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingTaskId, setEditingTaskId] = useState(null);
+
+  const [filterPriority, setFilterPriority] = useState("All");
+  const [sortOrder, setSortOrder] = useState("Newest");
+
+  const filteredTasks = addedTasks.filter(
+    (task) =>
+      filterPriority === "All" ||
+      task.priority === filterPriority
+  );
+
+  const visibleTasks = [...filteredTasks].sort((a, b) => {
+    if (sortOrder === "Newest") return b.createdAt - a.createdAt;
+
+    if (!a.deadline && !b.deadline) return 0;
+    if (!a.deadline) return 1;
+    if (!b.deadline) return -1;
+
+    return a.deadline.localeCompare(b.deadline);
+  });
   return (
     <>
       <header className="flex items-center justify-between border-b border-gray-200 pb-4">
@@ -61,13 +121,35 @@ export default function Home() {
         <section className="mt-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold text-stone-800">
-              Today's Tasks
+              Today&apos;s Tasks
             </h2>
+
+            <div className="mb-5 flex gap-3">
+              <select
+                value={filterPriority}
+                onChange={(e) => setFilterPriority(e.target.value)}
+                className="rounded-lg border bg-white p-2"
+              >
+                <option value="All">All Priorities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="rounded-lg border bg-white p-2"
+              >
+                <option value="Newest">Newest First</option>
+                <option value="Deadline">Deadline</option>
+              </select>
+            </div>
 
             {showForm && (
               <div className="mb-5 rounded-xl border border-stone-200 bg-white p-5">
                 <h3 className="mb-4 text-lg font-semibold">
-                  {editingIndex !== null ? "Edit Task" : "Add a New Task"}
+                  {editingTaskId !== null ? "Edit Task" : "Add a New Task"}
                 </h3>
 
                 <input
@@ -99,15 +181,15 @@ export default function Home() {
                   onClick={() => {
                     if (taskName.trim() === "") return;
 
-                    if (editingIndex !== null) {
+                    if (editingTaskId !== null) {
                       setAddedTasks(
-                        addedTasks.map((item, i) =>
-                          i === editingIndex
+                        addedTasks.map((item) =>
+                          item.id === editingTaskId
                             ? {
                               ...item,
                               name: taskName,
-                              priority: priority,
-                              deadline: deadline
+                              priority,
+                              deadline,
                             }
                             : item
                         )
@@ -116,10 +198,12 @@ export default function Home() {
                       setAddedTasks([
                         ...addedTasks,
                         {
+                          id: crypto.randomUUID(),
                           name: taskName,
-                          priority: priority,
-                          deadline: deadline,
-                          completed: false
+                          priority,
+                          deadline,
+                          completed: false,
+                          createdAt: Date.now(),
                         }
                       ]);
                     }
@@ -127,7 +211,7 @@ export default function Home() {
                     setTaskName("");
                     setPriority("Medium");
                     setDeadline("");
-                    setEditingIndex(null);
+                    setEditingTaskId(null);
                     setShowForm(false);
                   }}
                   className="rounded-lg bg-green-800 px-4 py-2 text-white"
@@ -144,64 +228,16 @@ export default function Home() {
               + Add Task
             </button>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-5 mb-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-stone-800">
-                  Complete Java assignment
-                </h3>
-                <p className="mt-1 text-sm text-stone-500">
-                  OOPs · Due today
-                </p>
-              </div>
-
-              <span className="rounded-full bg-red-100 px-3 py-1 text-sm text-red-700">
-                High
-              </span>
-            </div>
-          </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-5 mb-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-stone-800">
-                  Study Operating Systems
-                </h3>
-                <p className="mt-1 text-sm text-stone-500">
-                  OS · Due tomorrow
-                </p>
-              </div>
-
-              <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700">
-                Medium
-              </span>
-            </div>
-          </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-5 mb-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-stone-800">
-                  Practice Data Structures
-                </h3>
-                <p className="mt-1 text-sm text-stone-500">
-                  DSA · Due in 3 days
-                </p>
-              </div>
-
-              <span className="rounded-full bg-green-100 px-3 py-1 text-sm text-green-700">
-                Low
-              </span>
-            </div>
-          </div>
-
-          {addedTasks.map((task, index) => (
+          {visibleTasks.map((task) => (
             <div
-              key={index}
+              key={task.id}
               className="mt-3 rounded-xl border border-stone-200 bg-white p-5"
             >
               <h3 className="font-semibold text-stone-800">
                 {task.name}
               </h3>
               <p className="mt-1 text-sm text-stone-500">
+                {task.subject ? `${task.subject} · ` : ""}
                 {task.deadline ? `Due: ${task.deadline}` : "No deadline"}
               </p>
 
@@ -211,8 +247,8 @@ export default function Home() {
               <button
                 onClick={() => {
                   setAddedTasks(
-                    addedTasks.map((item, i) =>
-                      i === index
+                    addedTasks.map((item) =>
+                      item.id === task.id
                         ? { ...item, completed: !item.completed }
                         : item
                     )
@@ -228,7 +264,7 @@ export default function Home() {
                   setTaskName(task.name);
                   setPriority(task.priority);
                   setDeadline(task.deadline);
-                  setEditingIndex(index);
+                  setEditingTaskId(task.id);
                   setShowForm(true);
                 }}
                 className="mt-3 rounded-lg bg-blue-100 px-3 py-2 text-sm text-blue-700 ml-2"
@@ -239,7 +275,7 @@ export default function Home() {
               <button
                 onClick={() => {
                   setAddedTasks(
-                    addedTasks.filter((item, i) => i !== index)
+                    addedTasks.filter((item) => item.id !== task.id)
                   );
                 }}
                 className="ml-2 mt-3 rounded-lg bg-red-100 px-3 py-2 text-sm text-red-700"
