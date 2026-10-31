@@ -49,13 +49,14 @@ export default function TasksPage() {
 
   return (
     <>
-      <header className="flex items-center justify-between border-b border-gray-200 pb-4">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-4">
         <h2 className="text-xl font-bold text-green-800">Dayahead</h2>
 
-        <nav className="flex gap-6 text-gray-600">
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-gray-600">
           <Link href="/">Dashboard</Link>
           <Link href="/tasks">My Tasks</Link>
           <Link href="/login">Login</Link>
+          <Link href="/register">Register</Link>
         </nav>
       </header>
 

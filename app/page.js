@@ -47,6 +47,7 @@ export default function Home() {
           <Link href="/">Dashboard</Link>
           <Link href="/tasks">My Tasks</Link>
           <Link href="/login">Login</Link>
+          <Link href="/register">Register</Link>
         </nav>
       </header>
       <main className="min-h-screen bg-stone-50 p-8">
