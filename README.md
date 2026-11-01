@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dayahead
+### Plan today. Prepare for tomorrow.
 
-## Getting Started
+Dayahead is a personal task and time-management planner designed to help users organize daily activities, manage priorities, and keep track of deadlines in one place.
 
-First, run the development server:
+It provides a simple dashboard where users can plan their day, review upcoming tasks, and manage their workload efficiently.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 📸 Screenshots
+
+### Dashboard
+<!-- Replace the placeholder below with your dashboard screenshot -->
+![Dayahead Dashboard](./screenshots/dashboard.png)
+
+### My Tasks
+<!-- Replace the placeholder below with your My Tasks screenshot -->
+![My Tasks Page](./screenshots/mytasks.png)
+
+### Add / Edit Task
+<!-- Replace the placeholder below with your task form screenshot -->
+![Add or Edit Task](./screenshots/edit.png)
+
+### Login
+<!-- Replace the placeholder below with your login screenshot -->
+![Login Page](./screenshots/login.png)
+
+### Registration
+<!-- Replace the placeholder below with your registration screenshot -->
+![Registration Page](./screenshots/register.png)
+
+---
+
+## ✨ Features
+
+- **Task Dashboard** — View daily tasks and task summaries.
+- **Task Management** — Add, edit, complete, and delete tasks.
+- **Priority Levels** — Organize tasks as High, Medium, or Low priority.
+- **Deadlines** — Assign deadlines to tasks.
+- **Filtering and Sorting** — Filter tasks by priority and sort them by deadline or creation time.
+- **Today's Tasks** — View overdue and current-day tasks.
+- **Upcoming Tasks** — See future tasks before their deadlines arrive.
+- **My Tasks** — View and manage the complete task list.
+- **Login and Registration UI** — Frontend forms with basic validation.
+- **Responsive Design** — Designed to work across desktop and mobile screen sizes.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js | React framework and page routing |
+| JavaScript | Application logic |
+| React | Component-based UI |
+| React Context | Shared task state |
+| Tailwind CSS | Styling and responsive design |
+| Dummy Data | Sample tasks for the frontend demo |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have installed:
+
+- [Node.js](https://nodejs.org/)
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/thushara-bajimar/Dayahead.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd Dayahead
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📂 Project Structure
+
+```text
+Dayahead/
+├── app/
+│   ├── layout.js
+│   ├── page.js
+│   ├── tasks/
+│   │   └── page.js
+│   ├── login/
+│   │   └── page.js
+│   └── register/
+│       └── page.js
+├── components/
+│   ├── TaskCard.js
+│   ├── TaskForm.js
+│   └── SummaryCard.js
+├── context/
+│   └── TaskContext.js
+├── public/
+├── screenshots/
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🎯 Project Objective
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The objective of Dayahead is to provide a simple and accessible planner that helps users:
 
-## Learn More
+- Organize daily responsibilities.
+- Identify important tasks.
+- Keep track of deadlines.
+- Prepare for upcoming work.
+- Review and manage unfinished tasks.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔮 Future Enhancements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Persistent task storage
+- User authentication
+- Notifications and reminders
+- Calendar integration
+- Task sharing and collaboration
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👩‍💻 Developed By
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Thushara B S**  
+Skill Lab — Milestone 1  
+B.E. Computer Science and Engineering
