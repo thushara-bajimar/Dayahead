@@ -6,7 +6,7 @@ export default function TaskCard({
 }) {
   return (
     <div className="mt-3 min-w-0 rounded-xl border border-stone-200 bg-white p-4 sm:p-5">
-      <h3 className="break-words font-semibold text-stone-800">{task.name}</h3>
+      <h3 className="wrap-break-words font-semibold text-stone-800">{task.name}</h3>
       <p className="mt-1 text-sm text-stone-500">
         {task.subject ? `${task.subject} · ` : ""}
         {task.deadline ? `Due: ${task.deadline}` : "No deadline"}

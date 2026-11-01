@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
   return (
     <>
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-4">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 p-4">
         <Link href="/" className="text-xl font-bold text-green-800">
           Dayahead
         </Link>

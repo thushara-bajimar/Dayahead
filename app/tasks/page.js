@@ -49,7 +49,7 @@ export default function TasksPage() {
 
   return (
     <>
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-4">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 p-4">
         <h2 className="text-xl font-bold text-green-800">Dayahead</h2>
 
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-gray-600">
