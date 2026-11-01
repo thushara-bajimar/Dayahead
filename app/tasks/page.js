@@ -60,7 +60,7 @@ export default function TasksPage() {
         </nav>
       </header>
 
-      <main className="min-h-screen bg-stone-50 p-8">
+      <main className="min-h-screen bg-stone-50 p-4 sm:p-8">
         <section className="py-10">
           <h1 className="text-3xl font-bold text-stone-800">My Tasks</h1>
           <p className="mt-2 text-stone-500">
@@ -75,7 +75,7 @@ export default function TasksPage() {
                 aria-label="Filter tasks by status"
                 value={statusFilter}
                 onChange={(event) => setStatusFilter(event.target.value)}
-                className="rounded-lg border bg-white p-2"
+                className="min-h-11 rounded-lg border bg-white p-2"
               >
                 <option value="All">All Tasks</option>
                 <option value="Active">Active Tasks</option>
@@ -86,7 +86,7 @@ export default function TasksPage() {
                 aria-label="Filter tasks by priority"
                 value={priorityFilter}
                 onChange={(event) => setPriorityFilter(event.target.value)}
-                className="rounded-lg border bg-white p-2"
+                className="min-h-11 rounded-lg border bg-white p-2"
               >
                 <option value="All">All Priorities</option>
                 <option value="High">High Priority</option>
@@ -98,7 +98,7 @@ export default function TasksPage() {
                 aria-label="Sort tasks"
                 value={sortOrder}
                 onChange={(event) => setSortOrder(event.target.value)}
-                className="rounded-lg border bg-white p-2"
+                className="min-h-11 rounded-lg border bg-white p-2"
               >
                 <option value="Newest">Newest First</option>
                 <option value="Deadline">Deadline</option>
@@ -112,7 +112,7 @@ export default function TasksPage() {
                 setEditingTaskId(null);
                 setShowForm(true);
               }}
-              className="rounded-lg bg-green-800 px-4 py-2 text-white"
+              className="min-h-11 w-full rounded-lg bg-green-800 px-4 py-2 text-white sm:w-auto"
             >
               + Add Task
             </button>

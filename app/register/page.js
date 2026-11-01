@@ -55,7 +55,7 @@ export default function RegisterPage() {
                 type="text"
                 autoComplete="name"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="Your name"
               />
             </div>
@@ -70,7 +70,7 @@ export default function RegisterPage() {
                 type="email"
                 autoComplete="email"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="you@example.com"
               />
             </div>
@@ -85,7 +85,7 @@ export default function RegisterPage() {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="Create a password"
               />
             </div>
@@ -100,7 +100,7 @@ export default function RegisterPage() {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="Enter your password again"
               />
             </div>

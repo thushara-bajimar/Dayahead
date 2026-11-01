@@ -41,7 +41,7 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="you@example.com"
               />
             </div>
@@ -56,7 +56,7 @@ export default function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="w-full rounded-lg border border-stone-300 p-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-stone-300 p-3"
                 placeholder="Enter your password"
               />
             </div>

@@ -22,7 +22,7 @@ export default function TaskForm({ initialTask, onSave }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-5 rounded-xl border border-stone-200 bg-white p-5"
+      className="mb-5 min-w-0 rounded-xl border border-stone-200 bg-white p-4 sm:p-5"
     >
       <h3 className="mb-4 text-lg font-semibold">
         {initialTask ? "Edit Task" : "Add a New Task"}
@@ -31,7 +31,7 @@ export default function TaskForm({ initialTask, onSave }) {
       <input
         type="text"
         placeholder="Enter task name"
-        className="mb-3 w-full rounded-lg border p-3"
+        className="mb-3 min-h-11 w-full min-w-0 rounded-lg border p-3"
         value={taskName}
         onChange={(event) => setTaskName(event.target.value)}
         required
@@ -40,7 +40,7 @@ export default function TaskForm({ initialTask, onSave }) {
       <select
         value={priority}
         onChange={(event) => setPriority(event.target.value)}
-        className="mb-3 w-full rounded-lg border p-3"
+        className="mb-3 min-h-11 w-full min-w-0 rounded-lg border p-3"
       >
         <option value="High">High Priority</option>
         <option value="Medium">Medium Priority</option>
@@ -51,12 +51,12 @@ export default function TaskForm({ initialTask, onSave }) {
         type="date"
         value={deadline}
         onChange={(event) => setDeadline(event.target.value)}
-        className="mb-3 w-full rounded-lg border p-3"
+        className="mb-3 min-h-11 w-full min-w-0 rounded-lg border p-3"
       />
 
       <button
         type="submit"
-        className="rounded-lg bg-green-800 px-4 py-2 text-white"
+        className="min-h-11 w-full rounded-lg bg-green-800 px-4 py-2 text-white sm:w-auto"
       >
         Save Task
       </button>

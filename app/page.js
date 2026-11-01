@@ -29,7 +29,20 @@ export default function Home() {
       task.priority === filterPriority
   );
 
-  const visibleTasks = [...filteredTasks].sort((a, b) => {
+  const today = new Date();
+  const todayDate = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0"),
+  ].join("-");
+
+  const todayTasks = filteredTasks.filter(
+    (task) =>
+      task.deadline &&
+      (task.deadline === todayDate || (!task.completed && task.deadline < todayDate))
+  );
+
+  const visibleTasks = [...todayTasks].sort((a, b) => {
     if (sortOrder === "Newest") return b.createdAt - a.createdAt;
 
     if (!a.deadline && !b.deadline) return 0;
@@ -38,19 +51,24 @@ export default function Home() {
 
     return a.deadline.localeCompare(b.deadline);
   });
+
+  const upcomingTasks = tasks
+    .filter((task) => !task.completed && task.deadline && task.deadline > todayDate)
+    .sort((a, b) => a.deadline.localeCompare(b.deadline));
+
   return (
     <>
-      <header className="flex items-center justify-between border-b border-gray-200 pb-4">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-4">
         <h2 className="text-xl font-bold text-green-800">Dayahead</h2>
 
-        <nav className="flex gap-6 text-gray-600">
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-gray-600">
           <Link href="/">Dashboard</Link>
           <Link href="/tasks">My Tasks</Link>
           <Link href="/login">Login</Link>
           <Link href="/register">Register</Link>
         </nav>
       </header>
-      <main className="min-h-screen bg-stone-50 p-8">
+      <main className="min-h-screen bg-stone-50 p-4 sm:p-8">
         <section className="py-10">
           <h1 className="text-3xl font-bold text-stone-800">
             Good morning!
@@ -74,12 +92,12 @@ export default function Home() {
           />
         </section>
         <section className="mt-10">
-          <div className="mb-5 flex items-center justify-between">
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-bold text-stone-800">
               Today&apos;s Tasks
             </h2>
 
-            <div className="mb-5 flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <select
                 value={filterPriority}
                 onChange={(e) => setFilterPriority(e.target.value)}
@@ -140,6 +158,28 @@ export default function Home() {
               onDelete={deleteTask}
             />
           ))}
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-stone-800">Upcoming Tasks</h2>
+          {upcomingTasks.length > 0 ? (
+            upcomingTasks.map((task) => (
+              <TaskCard
+                key={`upcoming-${task.id}`}
+                task={task}
+                onToggleComplete={toggleTaskCompleted}
+                onEdit={(selectedTask) => {
+                  setEditingTaskId(selectedTask.id);
+                  setShowForm(true);
+                }}
+                onDelete={deleteTask}
+              />
+            ))
+          ) : (
+            <p className="mt-3 rounded-xl border border-stone-200 bg-white p-5 text-stone-500">
+              You&apos;re all caught up — no upcoming tasks yet.
+            </p>
+          )}
         </section>
       </main>
     </>
